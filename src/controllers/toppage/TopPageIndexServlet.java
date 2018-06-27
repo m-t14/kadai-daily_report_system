@@ -30,11 +30,11 @@ public class TopPageIndexServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-        /**
-         * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-         */
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        EntityManager em =DBUtil.createEntityManager();
+        EntityManager em = DBUtil.createEntityManager();
 
         Employee login_employee = (Employee)request.getSession().getAttribute("login_employee");
 
@@ -45,14 +45,14 @@ public class TopPageIndexServlet extends HttpServlet {
             page = 1;
         }
         List<Report> reports = em.createNamedQuery("getMyAllReports", Report.class)
-                                 .setParameter("employee", login_employee)
-                                 .setFirstResult(15 * (page - 1))
-                                 .setMaxResults(15)
-                                 .getResultList();
+                                  .setParameter("employee", login_employee)
+                                  .setFirstResult(15 * (page - 1))
+                                  .setMaxResults(15)
+                                  .getResultList();
 
         long reports_count = (long)em.createNamedQuery("getMyReportsCount", Long.class)
-                                      .setParameter("employee", login_employee)
-                                      .getSingleResult();
+                                     .setParameter("employee", login_employee)
+                                     .getSingleResult();
 
         em.close();
 
